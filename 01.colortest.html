@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            margin: 0;
+            width: 100%;
+            min-height: 100vh;
+            background-color: #F06060;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container{
+            width: 500px;
+            height: 500px;
+            background-color: #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .box{
+            width: calc(100% / var(--side));
+            height: calc(100% / var(--side));
+            border: solid 5px #ddd;
+            border-radius: 10px;
+        }
+        .box.answer{
+            opacity: calc(0.8 - 0.6 / var(--side));
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    </div>
+    <script>
+        const containerElement = document.querySelector('.container')
+        let side = 2
+        let times = [0,0,1,1,1,2,3,4,5,9999]
+        let count = 1
+        function createBox() {
+            let boxes = ''
+            let answer = Math.floor(Math.random() * side ** 2)
+            let boxSize = 100 / side
+            let r = Math.floor(Math.random() * 256)
+            let g = Math.floor(Math.random() * 256)
+            let b = Math.floor(Math.random() * 256)
+            let style = `style="--side:${side};background-color:rgb(${r}, ${g}, ${b})"`
+                for(let i = 0;i < side**2;i++){
+                    if (i == answer) {
+                        boxes += `<div class="box answer" ${style}></div>`
+                    }else{
+                        boxes += `<div class="box" ${style}></div>`
+                    }
+                }
+            containerElement.innerHTML = boxes            
+        }
+        function answerSetting() {
+            const answerElement = document.querySelector('.box.answer')
+            answerElement.addEventListener('click',function () {
+                if (count == times[side]) {
+                    side += 1
+                    count = 1
+                }else{
+                    count += 1
+                }
+                resetContainer()
+            });
+        }
+        function resetContainer() {
+            createBox()
+            answerSetting()
+        }
+        resetContainer()
+    </script>
+</body>
+</html>
