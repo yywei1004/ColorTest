@@ -32,8 +32,8 @@
         .box{
             width: calc(100% / var(--side));
             height: calc(100% / var(--side));
-            border: solid 5px #ddd;
-            border-radius: 10px;
+            border: solid calc(5px / var(--side) + 2px) #ddd;
+            border-radius: calc(20px / var(--side) + 3px);
         }
         .box.answer{
             opacity: calc(0.8 - 0.6 / var(--side));
